@@ -1,42 +1,87 @@
-/* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { Box, Tabs, Tab} from '@mui/material';
 import './App.css';
+import {
+  MemoryRouter,
+  Route,
+  Routes,
+  Link,
+  matchPath,
+  useLocation,
+} from 'react-router-dom';
+import SearchPlayer from './pages/SearchPlayer';
+import ErrorPage from './pages/ErrorPage';
+import { StaticRouter } from 'react-router-dom/server';
+// import { createStyles, makeStyles } from "@material-ui/core"
+
+// const useStyles = makeStyles((theme) => createStyles({
+//   container: {
+//       height: 'auto !important',
+//       overflow: 'visible'
+//   },
+//   navBar: {
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center'
+//   }
+// }));
 
 function App() {
-  const [player, setPlayer] = useState("");
-  const [data, setData] = useState({});
-  const API_KEY = "RGAPI-e2adb4a3-e165-4604-8dd4-dd5fc155af70"; //Si no te anda de primera probá pegar tu código propio que conseguís acá https://developer.riotgames.com/
+  //const classes = useStyles();
 
-  const searchPlayer = (e) => {
-    //const API_CALL = "https://la2.api.riotgames.com"
-    const API_CALL = "https://la2.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+player+"?api_key="+ API_KEY;
-    axios.get(API_CALL).then((response) =>{
-      setData(response.data);
-    }).catch((error) => console.error(error));
+  function useRouteMatch(patterns) {
+    const { pathname } = useLocation();
+  
+    for (let i = 0; i < patterns.length; i += 1) {
+      const pattern = patterns[i];
+      const possibleMatch = matchPath(pattern, pathname);
+      if (possibleMatch !== null) {
+        return possibleMatch;
+      }
+    }
+  
+    return null;
+  }
 
+  function Router(props) {
+    const { children } = props;
+    if (typeof window === 'undefined') {
+      return <StaticRouter location="/error">{children}</StaticRouter>;
+    }
+  
+    return (
+      <MemoryRouter initialEntries={['*']} initialIndex={0}>
+        {children}
+      </MemoryRouter>
+    );
+  }
+
+  function MyTabs() {
+    const routeMatch = useRouteMatch(['error', 'searchplayer', 'champs', 'items']);
+    const currentTab = routeMatch?.pattern?.path;
+  
+    return (
+      <Tabs value={currentTab}>
+        <Tab label="Buscador" value="searchplayer" to="searchplayer" component={Link} />
+        <Tab label="Items" value="items" to="/error" component={Link} />
+        <Tab label="Champs" value="champs" to="/error" component={Link} />
+        {/* <Tab label="TFT Sección" value="/error" to="/error" component={Link} />
+        <Tab label="LOR Sección" value="/error" to="/error" component={Link} />
+        <Tab label="Valorant Sección" value="/error" to="/error" component={Link} /> */}
+      </Tabs>
+    );
   }
 
   return (
-    <div className="App">
-      <div className="container">
-        <h5> LOL SEARCH</h5>
-        <input onChange={(e) => setPlayer(e.target.value)} type="text"/>
-        <button onClick={e => searchPlayer(e)}>
-          Search
-        </button>
-      </div>
-      {
-        JSON.stringify(data) !== "{}" ?
-        <>
-          <h5>INVOCADOR: </h5>
-          <img width="100" height="100" src={`http://ddragon.leagueoflegends.com/cdn/12.15.1/img/profileicon/${data.profileIconId}.png`} />
-          <p>{data.name}</p>
-          <p>{data.summonerLevel}</p>
-        </>
-        : <p> No se encontró a invocador </p>
-      }
-    </div>
+    <Router>
+      <Box sx={{ width: '100%' }}>
+        <MyTabs />
+        <Routes>
+          <Route path="/searchplayer" element={<SearchPlayer />} />
+          <Route path="/error" element={<ErrorPage />} />
+        </Routes>
+      </Box>
+    </Router>
   );
 }
 
