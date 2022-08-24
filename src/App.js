@@ -12,6 +12,8 @@ import {
 import SearchPlayer from './pages/SearchPlayer';
 import ErrorPage from './pages/ErrorPage';
 import { StaticRouter } from 'react-router-dom/server';
+import Footer from './components/Footer';
+
 // import { createStyles, makeStyles } from "@material-ui/core"
 
 // const useStyles = makeStyles((theme) => createStyles({
@@ -80,6 +82,7 @@ function App() {
           <Route path="/searchplayer" element={<SearchPlayer />} />
           <Route path="/error" element={<ErrorPage />} />
         </Routes>
+        <Footer title={"footer"}/>
       </Box>
     </Router>
   );
