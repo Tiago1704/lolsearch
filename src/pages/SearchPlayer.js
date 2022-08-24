@@ -27,7 +27,7 @@ const SearchPlayer = () => {
   const classes = useStyles();
   const [player, setPlayer] = useState("");
   const [data, setData] = useState({});
-  const API_KEY = "RGAPI-8a885747-f616-4dc5-86ce-5d40708d5eb6"; //Si no te anda de primera probá pegar tu código propio que conseguís acá https://developer.riotgames.com/
+  const API_KEY = "RGAPI-782ec1bd-7b50-437d-9c4a-e299593ddb83"; //Si no te anda de primera probá pegar tu código propio que conseguís acá https://developer.riotgames.com/
 
   const searchPlayer = (e) => {
     const API_CALL = "https://la2.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+player+"?api_key="+ API_KEY;
