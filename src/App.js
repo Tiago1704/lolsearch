@@ -82,7 +82,7 @@ function App() {
           <Route path="/searchplayer" element={<SearchPlayer />} />
           <Route path="/error" element={<ErrorPage />} />
         </Routes>
-        <Footer title={"footer"}/>
+        <Footer title={"footer"}></Footer>
       </Box>
     </Router>
   );
