@@ -13,6 +13,7 @@ import SearchPlayer from './pages/SearchPlayer';
 import ErrorPage from './pages/ErrorPage';
 import { StaticRouter } from 'react-router-dom/server';
 import Footer from './components/Footer';
+import ChampsPage from './pages/ChampsPage';
 
 // import { createStyles, makeStyles } from "@material-ui/core"
 
@@ -50,7 +51,7 @@ function App() {
     if (typeof window === 'undefined') {
       return <StaticRouter location="/error">{children}</StaticRouter>;
     }
-  
+  //Reemplazar el "*" por la dirección de la página de Juan
     return (
       <MemoryRouter initialEntries={['*']} initialIndex={0}>
         {children}
@@ -64,9 +65,9 @@ function App() {
   
     return (
       <Tabs value={currentTab}>
-        <Tab label="Buscador" value="searchplayer" to="searchplayer" component={Link} />
-        <Tab label="Items" value="items" to="/error" component={Link} />
-        <Tab label="Champs" value="champs" to="/error" component={Link} />
+        <Tab id="searchplayer" label="Buscador" value="searchplayer" to="searchplayer" component={Link} />
+        <Tab id="error" label="Items" value="items" to="error" component={Link} />
+        <Tab id="champs" label="Champs" value="champs" to="champs" component={Link} />
         {/* <Tab label="TFT Sección" value="/error" to="/error" component={Link} />
         <Tab label="LOR Sección" value="/error" to="/error" component={Link} />
         <Tab label="Valorant Sección" value="/error" to="/error" component={Link} /> */}
@@ -79,8 +80,9 @@ function App() {
       <Box sx={{ width: '100%' }}>
         <MyTabs />
         <Routes>
-          <Route path="/searchplayer" element={<SearchPlayer />} />
+          <Route path="/searchplayer" element={<SearchPlayer />} exact />
           <Route path="/error" element={<ErrorPage />} />
+          <Route path="/champs" element={<ChampsPage />} />
         </Routes>
         <Footer title={"footer"}/>
       </Box>
