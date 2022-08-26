@@ -12,7 +12,7 @@ export const champsArrays = async() => {
 export const searchChamps = async(element) => {
     console.log(element)
     let arr = []
-    await axios.get(`http://ddragon.leagueoflegends.com/cdn/12.15.1/data/en_US/champion/${element}.json`).then((response) =>{
+    await axios.get(`http://ddragon.leagueoflegends.com/cdn/12.15.1/data/es_MX/champion/${element}.json`).then((response) =>{
         arr = response?.data.data;
     }).catch((error) => console.error(error));
     console.log(arr)
