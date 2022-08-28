@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => createStyles({
         overflow: 'visible',
         backgroundColor: "#BDBDBD",
         minHeight: 770,
+        width: '100%',
     },    
     title: {
         textAlign: 'center',
@@ -21,6 +22,13 @@ const useStyles = makeStyles((theme) => createStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        gap: 15
+    },
+    itemsTwo: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
         gap: 15
     },
     errorTitle: {
@@ -59,7 +67,6 @@ const SearchPlayer = () => {
       setData(response?.data);
     }).catch((error) => {
       setError(true)
-      console.error(error)
     });
   }
 
@@ -70,7 +77,6 @@ const SearchPlayer = () => {
       setData(response?.data);
       setError(false)
     }).catch((error) => {
-      console.error(error)
       setError(false)
     });
   }
@@ -108,12 +114,12 @@ const SearchPlayer = () => {
       }
       {
         data && !error ?
-        <>
+        <div className={classes.itemsTwo}>
           <Typography>INVOCADOR: </Typography>
           <img width="100" height="100" src={`http://ddragon.leagueoflegends.com/cdn/12.15.1/img/profileicon/${data?.profileIconId}.png`} />
           <p>{data?.name}</p>
           <p>{data?.summonerLevel}</p>
-        </>
+        </div>
         : null
       }
     </Container>
