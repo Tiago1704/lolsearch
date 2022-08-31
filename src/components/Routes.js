@@ -1,5 +1,6 @@
 import ChampsPage from "../pages/ChampsPage";
 import ErrorPage from "../pages/ErrorPage";
+import ItemsPage from "../pages/ItemsPage";
 import SearchPlayer from "../pages/SearchPlayer";
 
 const Routes = [
@@ -25,7 +26,7 @@ const Routes = [
       id: 'items',
       name: 'Items',
       direction: '/items',
-      component: ErrorPage
+      component: ItemsPage
     },
     {
       id: 'modes',
