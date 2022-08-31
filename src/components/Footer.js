@@ -18,25 +18,23 @@ const useStyles = makeStyles(() => createStyles({
         background: "#2E86C1",
     },
     botonPersonalizated: {
-        fontWeight: "600",
-        fontSize: "20px",
-        color: "#DF1919",
-        paddingTop:"15px",
-        paddingBottom:"15px",
-        paddingLeft: "40px",
-        paddingRight: "40px",
-        backgroundTint: "#FF0400",
-        borderWidth: "3px",
-        borderstyle: "solid"
+        border: "1px solid #2e518b", /*anchura, estilo y color borde*/
+        padding: "10px", /*espacio alrededor texto*/
+        backgroundColor: "#000000",
+        color: "#ffffff", /*color texto*/
+        textDecoration: "none", /*decoración texto*/
+        textTransform: "uppercase", /*capitalización texto*/
+        fontFamily: "Helvetica', sans-serif", /*tipografía texto*/
+        borderRadius: "50px", /*bordes redondos*/
     }, botonPersonalizated2: {
         fontWeight: "600",
         fontSize: "20px",
-        color: "#ffffff",
+        color: "#FF0400",
         paddingTop:"15px",
         paddingBottom:"15px",
         paddingLeft: "40px",
         paddingRight: "40px",
-        backgroundColor: "#f2595e",
+        backgroundColor: "#000000",
         borderWidth: "3px",
         borderstyle: "solid"},
     textGroup:{
@@ -59,9 +57,12 @@ const Footer = (title) => {
     return (
         <Grid  className={classes.footer1}>
             <Grid justifyContent={"space-between"} className={classes.textGroup}>
-                <Button color='success' href="https://www.instagram.com/?hl=es-la" target="_blank" variant="contained" className={classes.botonPersonalizated}>INSTAGRAM</Button>
+                <Button href="https://www.instagram.com/?hl=es-la" target="_blank" variant="contained" className={classes.botonPersonalizated}>INSTAGRAM</Button>
                 <Button href="https://www.facebook.com/" target="_blank" variant="contained" className={classes.botonPersonalizated2}>facebook</Button>
                 <img height="100" width="100" src={"https://w7.pngwing.com/pngs/20/558/png-transparent-league-of-legends-logo-riot-games-font-brand-league-of-legends-text-logo-legend.png"}/>
+                <p>Contáctanos. <br></br>
+                Todos los derechos reservados®.
+                </p>
             </Grid>
         </Grid>
     )
