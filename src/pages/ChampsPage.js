@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => createStyles({
   },    
 }));
 
-const ErrorPage = () => {
+const ChampsPage = () => {
   const classes = useStyles();
 
     return(
@@ -27,4 +27,4 @@ const ErrorPage = () => {
 //   champsArrays().then(response => console.log(response))
 // },[])
 
-export default ErrorPage;
+export default ChampsPage;
