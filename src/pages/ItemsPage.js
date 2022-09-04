@@ -1,4 +1,4 @@
-import { ImageList, Modal, Container, ImageListItem, Stack, Pagination, ImageListItemBar, IconButton } from "@mui/material";
+import { ImageList, Modal, Container, ImageListItem, Stack, Pagination, ImageListItemBar, IconButton, Box, Typography } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
 import React, { useEffect, useState } from "react";
 import { itemsArrays } from "../functions";
@@ -11,7 +11,18 @@ const useStyles = makeStyles((theme) => createStyles({
         backgroundColor: "#BDBDBD",
         minHeight: 770,
         width: '100%',
-    },    
+    },  
+    modal: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        backgroundColor: 'white',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    }  
 }));
 
 const ItemsPage = () => {
@@ -19,28 +30,41 @@ const ItemsPage = () => {
     const [data, setData] = useState([])
     const [openModal, setOpenModal] = useState(false)
     const [dataPag, setDataPag] = useState([])
+    const [itemModal, setItemModal] = useState([])
+
+    const initialNav = (firstState) => {
+        let arrayAux = []
+        for (let i = 0; i < 15; i++) {
+            arrayAux.push(firstState[i]);
+        }
+        return arrayAux
+    }
+
     useEffect(() => {
         itemsArrays().then(response => {
             setData(response)
+            setDataPag(initialNav(response))
         })
     },[])
+
     const handleChange = (event, value) => {
-        //console.log(data)
         let arrayAux = []
         const pag = 15*value
         const from = pag-15
         for (let index = from; index < pag; index++) {
-            //console.log(data[index])
             arrayAux.push(data[index]);
         }
         setDataPag(arrayAux)
     }
     //Acá definís la función
-    const handleClick = () => {
-        console.log('dadas')
+    const handleClick = (item) => {
+        console.log(item)
+        setItemModal(item)
+        setOpenModal(true)
     }
 
     const handleClose = () => {
+        setOpenModal(false)
     }
     
     return(
@@ -68,11 +92,13 @@ const ItemsPage = () => {
                                 />
                                 <ImageListItemBar
                                 title={item?.name}
+                                //key= {`item-${index}`}
                                 actionIcon={
                                     <IconButton
+                                    //key= {`img-${index}`}
                                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                                     aria-label={`${item?.name}`}
-                                    onClick={handleClick} //acá llamas a la función enlazada con el return
+                                    onClick={(e) => handleClick(item)} //acá llamas a la función enlazada con el return
                                     >
                                     <InfoIcon />
                                     </IconButton>
@@ -89,8 +115,25 @@ const ItemsPage = () => {
             <Modal 
                 open={openModal} //Acá está el efecto de la función
                 onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
             >
-                <div> modal </div>
+                  <Box className={classes.modal}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        {itemModal.name}
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        {itemModal.plaintext}
+                    </Typography>
+                    <img //`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${item.img}.png`
+                        height={itemModal.image.h}  
+                        width={itemModal.image.w}  
+                        src={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image.full}`}
+                        srcSet={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image.full}`}
+                        alt={itemModal.name}
+                        loading="lazily "
+                    />
+                </Box>
             </Modal>
         </>
       );
