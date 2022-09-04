@@ -32,9 +32,9 @@ const Footer = () => {
     //ACÁ VA LA LÓGICA DE JAVASCRIPT
     
     return (
-        <Grid direction="row" className={classes.footer1}>
+        <Grid className={classes.footer1}>
             <Grid justifyContent={"space-between"} className={classes.textGroup}>
-                <Grid display="flex" direction="row" >
+                <Grid display="flex" >
                     <IconButton href="https://www.instagram.com/?hl=es-la" target="_blank" variant="contained">
                         <InstagramIcon />
                     </IconButton >
