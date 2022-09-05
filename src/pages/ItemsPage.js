@@ -83,8 +83,8 @@ const ItemsPage = () => {
                             <>
                             <ImageListItem key={index}>
                                 <img //`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${item.img}.png`
-                                height={item?.image.h}  
-                                width={item?.image.w}  
+                                height={item?.image?.h}  
+                                width={item?.image?.w}  
                                 src={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${item?.image.full}`}
                                 srcSet={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${item?.image.full}`}
                                 alt={item?.name}
@@ -126,10 +126,10 @@ const ItemsPage = () => {
                         {itemModal.plaintext}
                     </Typography>
                     <img //`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${item.img}.png`
-                        height={itemModal.image.h}  
-                        width={itemModal.image.w}  
-                        src={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image.full}`}
-                        srcSet={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image.full}`}
+                        height={itemModal.image?.h}  
+                        width={itemModal.image?.w}  
+                        src={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image?.full}`}
+                        srcSet={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image?.full}`}
                         alt={itemModal.name}
                         loading="lazily "
                     />
