@@ -2,13 +2,14 @@ import ChampsPage from "../pages/ChampsPage";
 import ErrorPage from "../pages/ErrorPage";
 import ItemsPage from "../pages/ItemsPage";
 import SearchPlayer from "../pages/SearchPlayer";
+import Inicio from "../pages/Inicio";
 
 const Routes = [
     {
       id: 'principal',
       name: '',
       direction: '/',
-      component: ErrorPage  
+      component: Inicio  
     },
     {
       id: 'searchplayers',
