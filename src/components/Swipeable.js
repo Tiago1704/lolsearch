@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
@@ -12,38 +12,30 @@ import { autoPlay } from 'react-swipeable-views-utils';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
-const images = [
-  {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
-    imgPath:
-      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: 'Bird',
-    imgPath:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-  {
-    label: 'Bali, Indonesia',
-    imgPath:
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
-  },
-  {
-    label: 'Goč, Serbia',
-    imgPath:
-      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-  },
-];
-
-function Swipeable() {
+function Swipeable(arrayGeneric) {
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = images.length;
+  const [activeStep, setActiveStep] = useState(0);
+  const maxSteps = 5;
 
+  //console.log(arrayGeneric.arrayGeneric)
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
+  const arrayChamps = (champsi) => {
+    const arrayChamps = []
+    for (let i = 0; i < champsi.length; i++) {
+      arrayChamps.push(
+        {
+          label:champsi[i],
+          imgPath:`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champsi[i]}_1.jpg`
+        }
+      )
+    }
+    //console.log(arrayChamps)
+    return arrayChamps;
+  }
+  
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
@@ -53,7 +45,7 @@ function Swipeable() {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <Box sx={{ maxWidth: 400*1.5, flexGrow: 1 }}>
       <Paper
         square
         elevation={0}
@@ -65,7 +57,7 @@ function Swipeable() {
           bgcolor: 'background.default',
         }}
       >
-        <Typography>{images[activeStep].label}</Typography>
+        <Typography>{arrayChamps[activeStep]?.label}</Typography>
       </Paper>
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -73,15 +65,15 @@ function Swipeable() {
         onChangeIndex={handleStepChange}
         enableMouseEvents
       >
-        {images.map((step, index) => (
+        {arrayChamps(arrayGeneric.arrayGeneric).map((step, index) => (
           <div key={step.label}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
                 sx={{
-                  height: 255,
+                  height: 255*1.5,
                   display: 'block',
-                  maxWidth: 400,
+                  maxWidth: 400*1.5,
                   overflow: 'hidden',
                   width: '100%',
                 }}
