@@ -19,11 +19,29 @@ export const itemsArrays = async() => {
 }
 
 export const searchChamps = async(element) => {
-    console.log(element)
     let arr = []
     await axios.get(`http://ddragon.leagueoflegends.com/cdn/12.15.1/data/es_MX/champion/${element}.json`).then((response) =>{
         arr = response?.data.data;
     }).catch((error) => console.error(error));
-    console.log(arr)
     return arr
 }
+// funcion que trae el array de champs, elije 4 o 5 champs y los devuelve.
+
+function random(min, max) {
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+}
+
+// Se le pasa el array de todos los champs y elije a lazar 5 y los guarda en un array
+export const aFewChamps = (element) => {
+    let arr = []
+    //puedo usar un for del 1 al 5.
+    for (let i = 0; i < 5; i++) {
+        arr.push(element[random(0,element.length)]?.id);
+
+    }    
+    return arr
+}
+
+
+
+// Funcion que devuelve un array con nombres de champs
