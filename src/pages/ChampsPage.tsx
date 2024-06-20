@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "@mui/material";
 import { createStyles, makeStyles } from "@material-ui/core"
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles((_theme) => createStyles({
   container: {
       height: '100%',
       overflow: 'visible',
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => createStyles({
   },    
 }));
 
-const ErrorPage = () => {
+const ChampsPage = () => {
   const classes = useStyles();
 
     return(
@@ -27,4 +27,4 @@ const ErrorPage = () => {
 //   champsArrays().then(response => console.log(response))
 // },[])
 
-export default ErrorPage;
+export default ChampsPage;

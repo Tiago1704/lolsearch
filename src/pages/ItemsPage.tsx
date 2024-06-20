@@ -1,10 +1,12 @@
-import { ImageList, Modal, Container, ImageListItem, Stack, Pagination, ImageListItemBar, IconButton, Box, Typography } from "@mui/material";
+import { ImageList, Modal, Container, ImageListItem, Stack, Pagination, ImageListItemBar, IconButton, Box, Typography, TextField } from "@mui/material";
 import InfoIcon from '@mui/icons-material/Info';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { itemsArrays } from "../functions";
 import { createStyles, makeStyles } from "@material-ui/core"
+import Swipeable from "../components/Swipeable";
+import { aFewChamps } from "../functions";
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles((_theme) => createStyles({
     container: {
         height: '100%',
         overflow: 'visible',
@@ -20,19 +22,24 @@ const useStyles = makeStyles((theme) => createStyles({
         width: 400,
         backgroundColor: 'white',
         border: '2px solid #000',
-        boxShadow: 24,
+        boxShadow: "24",
         p: 4,
-    }  
+    },
+    swipeable: {
+        display: 'flex',
+        justifyContent: 'center',
+    } 
 }));
 
 const ItemsPage = () => {
     const classes = useStyles();
-    const [data, setData] = useState([])
-    const [openModal, setOpenModal] = useState(false)
-    const [dataPag, setDataPag] = useState([])
-    const [itemModal, setItemModal] = useState([])
+    const [data, setData] = useState<any>([]);
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [dataPag, setDataPag] = useState<any>([]);
+    const [itemModal, setItemModal] = useState<any>([]);
+    const [filter, setFilter] = useState<any>();
 
-    const initialNav = (firstState) => {
+    const initialNav = (firstState: any): any => {
         let arrayAux = []
         for (let i = 0; i < 15; i++) {
             arrayAux.push(firstState[i]);
@@ -47,7 +54,7 @@ const ItemsPage = () => {
         })
     },[])
 
-    const handleChange = (event, value) => {
+    const handleChange = (_event: any, value: any) => {
         let arrayAux = []
         const pag = 15*value
         const from = pag-15
@@ -56,8 +63,14 @@ const ItemsPage = () => {
         }
         setDataPag(arrayAux)
     }
+    //data.map(i => console.log(i.tags))
+    
+    const filterInfo = (search: any): any => {
+        const filterArray = data.filter((i: any) => i.name.includes(search))
+        return search !== '' && filterArray.length > 0 ? initialNav(filterArray) : dataPag;
+    }
     //Acá definís la función
-    const handleClick = (item) => {
+    const handleClick = (item: any) => {
         console.log(item)
         setItemModal(item)
         setOpenModal(true)
@@ -70,15 +83,24 @@ const ItemsPage = () => {
     return(
         <>
             <Container className={classes.container}>
+                <div style={{ paddingTop: 5}}>
+                    <TextField
+                        label="Filtro"
+                        id="outlined-size-small"
+                        defaultValue="Buscar"
+                        size="small"
+                        onChange={(e) => setFilter(e.target?.value)}
+                    />
+                </div>
                 <Stack>
-                    <div>
-                        carrusel
+                    <div className={classes.swipeable}>
+                        <Swipeable arrayGeneric={aFewChamps(data)}/>
                     </div>
                     <ImageList style={{paddingLeft: '25%'}} variant="masonry" gap={15} cols={5} sx={{ width: "50%", height: "50%" }}>
                     {/* <ImageListItem key="Subheader" cols={2}>
                     <ListSubheader component="div">December</ListSubheader>
                     </ImageListItem> */}
-                        {dataPag.map((item, index) => {
+                        {filterInfo(filter).map((item: any, index: any) => {
                             return (
                             <>
                             <ImageListItem key={index}>
@@ -88,7 +110,7 @@ const ItemsPage = () => {
                                 src={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${item?.image.full}`}
                                 srcSet={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${item?.image.full}`}
                                 alt={item?.name}
-                                loading="lazily "
+                                loading="lazy"
                                 />
                                 <ImageListItemBar
                                 title={item?.name}
@@ -126,12 +148,12 @@ const ItemsPage = () => {
                         {itemModal.plaintext}
                     </Typography>
                     <img //`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${item.img}.png`
-                        height={itemModal.image.h}  
-                        width={itemModal.image.w}  
-                        src={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image.full}`}
-                        srcSet={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image.full}`}
-                        alt={itemModal.name}
-                        loading="lazily "
+                        height={itemModal.image?.h}  
+                        width={itemModal.image?.w}  
+                        src={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image?.full}`}
+                        srcSet={`http://ddragon.leagueoflegends.com/cdn/12.16.1/img/item/${itemModal.image?.full}`}
+                        alt={itemModal?.name}
+                        loading="lazy"
                     />
                 </Box>
             </Modal>

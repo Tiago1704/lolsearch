@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
-import Footer from './components/Footer';
 import Routes from './components/Routes';
 
 const App = () => {
@@ -15,7 +14,7 @@ const App = () => {
           </Route>
         ))}
       </Switch>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

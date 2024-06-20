@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-const NavigationBar = (props) => {
+const NavigationBar = (props: any) => {
   const classes = useStyles();
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDrawer = (open) => (
-    event,
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleDrawer = (open: boolean) => (
+    event: any,
   ) => {
     if (
       event.type === 'keydown' &&
@@ -49,7 +49,7 @@ const NavigationBar = (props) => {
     setIsOpen(open);
   };
 
-  const activeRoute = (routeName) => {
+  const activeRoute = (routeName: string) => {
     return props.location.pathname === routeName ? true : false;
   }
 
