@@ -23,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext .ts"
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +43,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.5",
+    "@types/react": "^17.0.80",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/react-swipeable-views": "^0.13.5",
+    "@types/react-swipeable-views-utils": "^0.13.7",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "eslint": "^8.57.0",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
   }
 }

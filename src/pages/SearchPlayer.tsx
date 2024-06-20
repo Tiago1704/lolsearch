@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => createStyles({
       paddingTop: 10,
       bgcolor: 'background.paper',
       border: '2px solid #000',
-      boxShadow: 24,
+      boxShadow: "24",
       minHeight: 300,
       backgroundColor: "#CD5C5C",
     },
@@ -56,12 +56,12 @@ const useStyles = makeStyles((theme) => createStyles({
 const SearchPlayer = () => {
   const classes = useStyles();
   const [player, setPlayer] = useState("");
-  const [data, setData] = useState();
+  const [data, setData] = useState<any>();
   const [apiKey, setApiKey] = useState("")
   const [error, setError] = useState(false)
  //Si no te anda de primera probá pegar tu código propio que conseguís acá https://developer.riotgames.com/
 
-  const searchPlayer = (e) => {
+  const searchPlayer = (e: any) => {
     const API_CALL = "https://la2.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+player+"?api_key="+ apiKey;
     axios.get(API_CALL).then((response) =>{
       setData(response?.data);
@@ -70,7 +70,7 @@ const SearchPlayer = () => {
     });
   }
 
-  const confirmApiKey = (e) => {
+  const confirmApiKey = (e: any) => {
     console.log(apiKey)
     const API_CALL = "https://la2.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+player+"?api_key="+ apiKey;
     axios.get(API_CALL).then((response) =>{
