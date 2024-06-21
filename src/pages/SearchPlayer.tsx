@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button } from '@mui/material';
 import { createStyles, makeStyles } from "@material-ui/core"
-import { User } from '../shared/interfaces';
+import { SummonerInfo } from '../shared/interfaces';
 
 const useStyles = makeStyles(() => createStyles({
     container: {
@@ -57,23 +57,26 @@ const SearchPlayer = () => {
   const classes = useStyles();
   const [name, setName] = useState<string>("");
   const [tag, setTag] = useState<string>("");
-  const [data, setData] = useState<User>();
+  const [data, setData] = useState<SummonerInfo>();
   const [apiKey, setApiKey] = useState<string>("RGAPI-8048f2f8-81ac-4b87-bce6-ee7d4dd694fa");
   const [error, setError] = useState<boolean>(false);
  //Si no te anda de primera probá pegar tu código propio que conseguís acá https://developer.riotgames.com/
 
  //EJEMPLO: https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/EhTiaguito/TITO?api_key=RGAPI-f11fbb8a-baff-4779-9008-d69a7f4dd21f
-  const searchPlayer = () => {
-    const API_CALL = `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/EhTiaguito/TITO?api_key=RGAPI-8048f2f8-81ac-4b87-bce6-ee7d4dd694fa`;
-    console.log(API_CALL)
-    axios.get(API_CALL).then((response) =>{
-    console.log(response)
-      setData(response?.data);
-    }).catch((error) => {
-      setError(true)
-      console.error(error)
+ const searchPlayer = () => {
+  const API_CALL = `http://localhost:4001/summoner/searchplayer/${name}/${tag}`;
+  console.log(API_CALL); // Verifica la URL construida
+  axios.get(API_CALL)
+    .then((response) => {
+      console.log(response.data); // Verifica la respuesta recibida
+      setData(response.data);
+    })
+    .catch((error) => {
+      setError(true);
+      console.error(error); // Loguea el error para diagnóstico
     });
-  }
+};
+
 
   const confirmApiKey = () => {
     console.log(apiKey)
@@ -123,9 +126,9 @@ const SearchPlayer = () => {
         data && !error ?
         <div className={classes.itemsTwo}>
           <Typography>INVOCADOR: </Typography>
-          <img width="100" height="100" src={`http://ddragon.leagueoflegends.com/cdn/12.15.1/img/profileicon/${data?.profileIconId}.png`} />
-          <p>{data?.name}</p>
-          <p>{data?.summonerLevel}</p>
+          <img width="100" height="100" src={`http://ddragon.leagueoflegends.com/cdn/12.15.1/img/profileicon/${data?.summonerInfo.profileIconId}.png`} />
+          <p>{data?.summonerIdentity.gameName}</p>
+          <p>{data?.summonerInfo.summonerLevel}</p>
         </div>
         : null
       }

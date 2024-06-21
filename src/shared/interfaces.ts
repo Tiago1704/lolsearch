@@ -123,8 +123,32 @@ export interface Item {
 
 //Interfaz para infouser
 
-export interface User {
-    name: string;
-    summonerLevel: string;
-    profileIconId: string;
-}
+export interface SummonerInfo {
+    summonerInfo: {
+      id: string;
+      accountId: string;
+      puuid: string;
+      profileIconId: number;
+      revisionDate: number;
+      summonerLevel: number;
+    };
+    summonerIdentity: {
+      puuid: string;
+      gameName: string;
+      tagLine: string;
+    };
+    rankInfo: {
+      leagueId: string;
+      queueType: string;
+      tier: string;
+      rank: string;
+      summonerId: string;
+      leaguePoints: number;
+      wins: number;
+      losses: number;
+      veteran: boolean;
+      inactive: boolean;
+      freshBlood: boolean;
+      hotStreak: boolean;
+    }[];
+  }
