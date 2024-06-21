@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { createStyles, makeStyles } from "@material-ui/core"
 
-const useStyles = makeStyles((_theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
   container: {
       height: '100%',
       overflow: 'visible',
@@ -20,10 +20,5 @@ const ErrorPage = () => {
       </Container>
       );
 }
-
-// useEffect(() => {
-//   searchChamps("Akali").then((response) => console.log(response))
-//   champsArrays().then(response => console.log(response))
-// },[])
 
 export default ErrorPage;

@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Drawer,
-  MenuList,
-  MenuItem,
-  ListItemText,
- } from '@material-ui/core';
- import MenuIcon from '@mui/icons-material/Menu';
- //import HomeIcon from '@mui/icons-material/Home';
+import { AppBar, Toolbar, IconButton, Drawer, MenuList, MenuItem, ListItemText} from '@material-ui/core';
+import MenuIcon from '@mui/icons-material/Menu';
 import Routes from './Routes';
 import { Divider, Typography } from '@mui/material';
+import { Routing } from '../shared/interfaces';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -32,20 +24,18 @@ const useStyles = makeStyles((theme) =>
   }),
 );
 
-const NavigationBar = (props: any) => {
+const NavigationBar = (props: Routing) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const toggleDrawer = (open: boolean) => (
-    event: any,
-  ) => {
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    console.log(event);
     if (
       event.type === 'keydown' &&
-      ((event).key === 'Tab' ||
-        (event).key === 'Shift')
+      ((event as React.KeyboardEvent).key === 'Tab' ||
+        (event as React.KeyboardEvent).key === 'Shift')
     ) {
       return;
     }
-
     setIsOpen(open);
   };
 
@@ -74,20 +64,20 @@ const NavigationBar = (props: any) => {
           <MenuList>
             {Routes.map((prop, key) => {
               return (
-                    <NavLink to={prop.direction} style={{ textDecoration: 'none' }} key={key}>
-                        <MenuItem key={props.id} style={{color: 'black'}} selected={activeRoute(prop.direction)}>
-                            <ListItemText key={key+1} primary={prop.name} />
-                        </MenuItem>
-                    </NavLink>
+                <NavLink to={prop.direction} style={{ textDecoration: 'none' }} key={key}>
+                  <MenuItem key={`${props.location.hash}-${key}`} style={{ color: 'black' }} selected={activeRoute(prop.direction)}>
+                    <ListItemText key={key + 1} primary={prop.name} />
+                  </MenuItem>
+                </NavLink>
               );
             })}
             <Divider />
             {["League of legends", "Teamfight Tactics", "Legends of Runaterra", "Valorant"].map((item, key) => {
-                return(
-                    <MenuItem key={key} style={{color: 'black'}}>
-                        <ListItemText key={key+1} primary={item} />
-                    </MenuItem>
-                )
+              return (
+                <MenuItem key={key} style={{ color: 'black' }}>
+                  <ListItemText key={key + 1} primary={item} />
+                </MenuItem>
+              )
             })}
           </MenuList>
           <Typography>V 0.1.0</Typography>

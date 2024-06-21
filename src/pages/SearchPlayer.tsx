@@ -1,10 +1,10 @@
-/* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button } from '@mui/material';
 import { createStyles, makeStyles } from "@material-ui/core"
+import { User } from '../shared/interfaces';
 
-const useStyles = makeStyles((theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
     container: {
         height: '100%',
         overflow: 'visible',
@@ -55,29 +55,35 @@ const useStyles = makeStyles((theme) => createStyles({
 
 const SearchPlayer = () => {
   const classes = useStyles();
-  const [player, setPlayer] = useState("");
-  const [data, setData] = useState<any>();
-  const [apiKey, setApiKey] = useState("")
-  const [error, setError] = useState(false)
+  const [name, setName] = useState<string>("");
+  const [tag, setTag] = useState<string>("");
+  const [data, setData] = useState<User>();
+  const [apiKey, setApiKey] = useState<string>("RGAPI-8048f2f8-81ac-4b87-bce6-ee7d4dd694fa");
+  const [error, setError] = useState<boolean>(false);
  //Si no te anda de primera probá pegar tu código propio que conseguís acá https://developer.riotgames.com/
 
-  const searchPlayer = (e: any) => {
-    const API_CALL = "https://la2.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+player+"?api_key="+ apiKey;
+ //EJEMPLO: https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/EhTiaguito/TITO?api_key=RGAPI-f11fbb8a-baff-4779-9008-d69a7f4dd21f
+  const searchPlayer = () => {
+    const API_CALL = `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/EhTiaguito/TITO?api_key=RGAPI-8048f2f8-81ac-4b87-bce6-ee7d4dd694fa`;
+    console.log(API_CALL)
     axios.get(API_CALL).then((response) =>{
+    console.log(response)
       setData(response?.data);
     }).catch((error) => {
       setError(true)
+      console.error(error)
     });
   }
 
-  const confirmApiKey = (e: any) => {
+  const confirmApiKey = () => {
     console.log(apiKey)
-    const API_CALL = "https://la2.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+player+"?api_key="+ apiKey;
+    const API_CALL = `https://la2.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}?api_key=${apiKey}`;
     axios.get(API_CALL).then((response) =>{
       setData(response?.data);
       setError(false)
     }).catch((error) => {
       setError(false)
+      console.error(error)
     });
   }
 
@@ -87,8 +93,9 @@ const SearchPlayer = () => {
       <div style={{paddingBottom: 25}}>
         <Typography className={classes.title}> LOL SEARCH</Typography>
         <div className={classes.itemsOne}>
-            <TextField id="filled-basic" label="Filled" variant="filled" onChange={(e) => setPlayer(e.target?.value)}/>
-            <Button variant="contained" onClick={e => searchPlayer(e)}>
+            <TextField id="filled-basic" label="Nombre" variant="filled" onChange={(e) => setName(e.target?.value)}/>
+            <TextField id="filled-basic" label="TagName" variant="filled" onChange={(e) => setTag(e.target?.value)}/>
+            <Button variant="contained" onClick={searchPlayer}>
                 Search
             </Button>
         </div>
@@ -105,7 +112,7 @@ const SearchPlayer = () => {
           </Container>
           <div className={classes.itemsOne}>
             <TextField id="filled-error" variant="filled" onChange={(e) => setApiKey(e.target?.value)}/>
-            <Button color="error" variant="contained" onClick={e => confirmApiKey(e)}>
+            <Button color="error" variant="contained" onClick={confirmApiKey}>
               Aceptar
             </Button>
           </div>

@@ -2,9 +2,10 @@ import {useEffect, useState} from "react";
 import { Container } from '@mui/material';
 import { createStyles, makeStyles } from "@material-ui/core"
 import Swipeable from "../components/Swipeable";
-import { aFewChamps, champsArrays } from "../functions";
+import { aFewChamps, champsArrays } from "../shared/functions";
+import { Champion } from "../shared/interfaces";
 
-const useStyles = makeStyles((_theme) => createStyles({    
+const useStyles = makeStyles(() => createStyles({    
     root: {
         display: 'flex', 
         justifyContent: 'center',
@@ -15,14 +16,12 @@ const useStyles = makeStyles((_theme) => createStyles({
         fontSize: 18,
         margin: 10,
         color: 'blue'
-    },
-    // agregar boton 
+    }
 }));
 
 const Inicio = () => {
     const classes = useStyles()
-    const [champsList, setChampsList] = useState<any>([]);
-    //div hay que definir los tamaños, container no necesita
+    const [champsList, setChampsList] = useState<Champion[]>([]);
 
   useEffect(() => {
     champsArrays().then(response => setChampsList(response))
@@ -30,11 +29,7 @@ const Inicio = () => {
 
 
     return(
-        <Container className={classes.root}> 
-            {/* estructura basica, se comenta con control y barra cerrada*/}
-            {/* <Typography className={classes.title}>
-            Pagina de inicio
-            </Typography> */}
+        <Container className={classes.root}>
             <Swipeable arrayGeneric={aFewChamps(champsList)}/>
         </Container>
     )
