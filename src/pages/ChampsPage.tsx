@@ -8,6 +8,7 @@ const useStyles = makeStyles(() => createStyles({
       backgroundColor: "#BDBDBD",
       minHeight: 770,
       width: '100%',
+      color: '#f44336'
   },    
 }));
 

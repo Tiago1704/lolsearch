@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Drawer, MenuList, MenuItem, ListItemText} from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Drawer, MenuList, MenuItem, ListItemText } from '@material-ui/core';
 import MenuIcon from '@mui/icons-material/Menu';
 import Routes from './Routes';
 import { Divider, Typography } from '@mui/material';
@@ -20,15 +20,22 @@ const useStyles = makeStyles((theme) =>
     },
     fullList: {
       width: 'auto',
-    }
+    },
+    appBar: {
+      backgroundColor: theme.palette.secondary.main,
+      transition: 'background-color 0.5s ease-in-out',
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main,
+      },
+    },
   }),
 );
 
 const NavigationBar = (props: Routing) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    console.log(event);
     if (
       event.type === 'keydown' &&
       ((event as React.KeyboardEvent).key === 'Tab' ||
@@ -41,12 +48,12 @@ const NavigationBar = (props: Routing) => {
 
   const activeRoute = (routeName: string) => {
     return props.location.pathname === routeName ? true : false;
-  }
+  };
 
   return (
     <div>
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
               <MenuIcon />
@@ -72,7 +79,7 @@ const NavigationBar = (props: Routing) => {
               );
             })}
             <Divider />
-            {["League of legends", "Teamfight Tactics", "Legends of Runaterra", "Valorant"].map((item, key) => {
+            {["League of Legends", "Teamfight Tactics", "Legends of Runeterra", "Valorant"].map((item, key) => {
               return (
                 <MenuItem key={key} style={{ color: 'black' }}>
                   <ListItemText key={key + 1} primary={item} />

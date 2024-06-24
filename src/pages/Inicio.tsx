@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => createStyles({
         textAlign: 'center',
         fontSize: 18,
         margin: 10,
-        color: 'blue'
+        color: 'red'
     }
 }));
 
